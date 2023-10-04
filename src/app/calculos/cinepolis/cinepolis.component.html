@@ -1,52 +1,75 @@
 
-<div class="d-flex justify-content-center"><h1>Cinépolis</h1></div>
-
-<div class="container1">
-    <h2>Entradas</h2>
-    <mat-form-field>
-        <p>Nombre: </p>
-        <input type="text" name="nombre" [(ngModel)]="nombre">
-    </mat-form-field>
-    <mat-form-field>
-        <p>Cantidad compradores: </p>
-        <input matInput [(ngModel)]="compradores" type="number" placeholder="Numero" min="1" max="999">
-    </mat-form-field>
-    <div class="d-flex">
-        <p>Tarjeta CINECO: </p>
-        
-        <div  class="form-check form-check-inline">
-            <input  value="si" [(ngModel)]="tarjeta" class="form-check-input" type="radio" name="tarjeta" id="flexRadioDefault1">
-            <label class="form-check-label" for="flexRadioDefault1">
-              Sí
-            </label>
+    <body>
+        <div class="fondo">
+        <div class="d-flex justify-content-center"><img src="https://static.cinepolis.com/marcas/club-cinepolis-id/Content/images/cinepolis-logo.png" alt="cinepolis" width="200" height="50" style="margin:20px;"></div>
+            <div class="row">
+                <div class="col">
+                    <div class="container1">
+                        <h2 style="font-style: italic; font-family:'Times New Roman', Times, serif">Entradas</h2>
+                        <mat-form-field>
+                            <p>Nombre: </p>
+                            <input type="text" name="nombre" [(ngModel)]="nombre">
+                        </mat-form-field>
+                        <mat-form-field>
+                            <p>Cantidad compradores: </p>
+                            <input matInput [(ngModel)]="compradores" type="number" placeholder="Numero" min="0" max="999">
+                        </mat-form-field>
+                        
+                        <mat-form-field>
+                            <p>Cantidad de boletos: </p>
+                            <input matInput ngModel [(ngModel)]="boletos" type="number" placeholder="Numero" min="0" max='999'>
+                            <p *ngIf="descuentoBoletos">{{mensajeDescuento}}</p>
+                            <label><h3 style="color: red; font-weight: bold;">{{mensajeError}}</h3></label>
+                        </mat-form-field>
+                    
+                        <div style="padding-left: 15px;">
+                            <p>Tarjeta CINEFAN: </p>
+                            <div class="form-check form-check-inline">
+                                <input (click)="actDescuentoTar()"  value="si" [(ngModel)]="tarjeta" class="form-check-input" type="radio" name="tarjeta" id="flexRadioDefault1">
+                                <label class="form-check-label" for="flexRadioDefault1">
+                                  Sí
+                                </label>
+                            </div>
+                            <div  class="form-check form-check-inline">
+                                <input (click)="desDescuentoTar()" value="no" [(ngModel)]="tarjeta" class="form-check-input" type="radio" name="tarjeta" id="flexRadioDefault1">
+                                <label class="form-check-label" for="flexRadioDefault1">
+                                  No
+                                </label>
+                            </div>
+                            <p *ngIf="descuentoTarjeta">¡10 % de descuento extra!</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="container2">
+                        <h2 style="font-style: italic; font-family:'Times New Roman', Times, serif">Salidas</h2>
+                        <mat-form-field>
+                            <div *ngIf="salida">
+                                <p>Nombre: {{nombre}}</p>
+                                <p>Cantidad de compradores: {{compradores}}</p>
+                                <p>Cantidad de boletos: {{boletos}}</p>
+                                <!-- <p>Descuentos: {{}}</p> -->
+                            </div>
+                            <p>Valor a Pagar: </p>
+                            <!-- <p>{{total}}</p> -->
+                            <input type="text" name="" value="${{total}}" disabled>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+            <div class="row" >
+                <div class="col" >
+                    <div class="container4">
+                        <div class="container3"><h2 style="margin: 1rem auto; font-style: italic; font-family:'Times New Roman', Times, serif">Acciones</h2></div>
+                    <div class="container3" >
+                        <button style="margin: 1rem auto;" mat-raised-button color="accent" (click)="procesar()">Procesar</button>
+                        <button style="margin: auto;" mat-fab color="warn" (click)="salir()"><mat-icon>delete</mat-icon></button>
+                    </div>
+                    </div>
+                    
+                </div>
+            </div> 
         </div>
+    </body>
 
-        <div  class="form-check form-check-inline">
-            <input  value="no" [(ngModel)]="tarjeta" class="form-check-input" type="radio" name="tarjeta" id="flexRadioDefault1">
-            <label class="form-check-label" for="flexRadioDefault1">
-              No
-            </label>
-        </div>
 
-    </div>
-    <mat-form-field>
-        <p>Cantidad de boletos: </p>
-        <input matInput [(ngModel)]="boletos" type="number" placeholder="Numero" min="1" max="{{boletosPosibles}}">
-    </mat-form-field>
-</div>
-
-<div class="coinater2">
-    <h2>Salidas</h2>
-    <mat-form-field>
-        <p>Valor a Pagar: </p>
-        <!-- <p>{{total}}</p> -->
-        <input type="text" name="" value="{{total}}" disabled>
-    </mat-form-field>
-</div>
-
-<div class="container3">
-    <h2>Acciones</h2>
-    <button mat-raised-button color="primary" (click)="procesar()">Procesar</button>
-    <br>
-    <button mat-raised-button color="primary" (click)="procesar()">Salir</button>
-</div>
